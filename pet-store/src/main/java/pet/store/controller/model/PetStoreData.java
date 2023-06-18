@@ -1,6 +1,7 @@
 package pet.store.controller.model;
 
 import java.util.Set;
+import java.util.HashSet;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,26 +23,27 @@ public class PetStoreData {
     private Set<Employee> employees;
     
     public PetStoreData(PetStore petStore) {
-    	petStoreId = petStore.getPetStoreId();
-    	petStoreName = petStore.getPetStoreName();
-    	petStoreAddress = petStore.getPetStoreAddress();
-    	petStoreCity = petStore.getPetStoreCity();
-    	petStoreState = petStore.getPetStoreState();
-    	petStoreZip = petStore.getPetStoreZip();
-    	petStorePhone = petStore.getPetStorePhone();
+        petStoreId = petStore.getPetStoreId();
+        petStoreName = petStore.getPetStoreName();
+        petStoreAddress = petStore.getPetStoreAddress();
+        petStoreCity = petStore.getPetStoreCity();
+        petStoreState = petStore.getPetStoreState();
+        petStoreZip = petStore.getPetStoreZip();
+        petStorePhone = petStore.getPetStorePhone();
 
-    	//for(Customer customer : petStore.getCustomers()) {
-    	//	customers.add(new PetStoreCustomer(customer));
-    	//}
-    	
-    	//for(Employee employee : petStore.getEmployees()) {
-    	//	employees.add(employee);
-    	//}
-    	
+        customers = new HashSet<>(); // Initialize customers set
+        employees = new HashSet<>(); // Initialize employees set
 
-   }
+        for (Customer customer : petStore.getCustomers()) {
+            customers.add(new PetStoreCustomer(customer));
+        }
 
-   @Data
+        for (Employee employee : petStore.getEmployees()) {
+            employees.add(employee);
+        }
+    }
+
+    @Data
    @NoArgsConstructor
    public static class PetStoreCustomer {
 
@@ -49,6 +51,8 @@ public class PetStoreData {
 	   private String customerFirstName;
 	   private String customerLastName;
 	   private String customerEmail;
+	   
+	   private PetStore petStore;
 
 	public PetStoreCustomer(Customer customer) {
 		
